@@ -1,3 +1,8 @@
+<?php
+session_start();
+include("koneksi.php");
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,7 +27,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="index.php">HOME</a>
         <a class="nav-link active" aria-current="page" href="mahasiswa.php">Data</a>
-        <a class="nav-link active" aria-current="page" href="mencari_data.php">cari</a>
+        <a class="nav-link" href="#">belum</a>
       </div>
     </div>
   </div>
@@ -40,11 +45,15 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         $id = $_POST["id_mahasiswa"];
         $name = $_POST["name"];
-        $Angkatan = $_POST["angkatan"];
-        $NPM = $_POST["NPM"];
+        $Tahun = $_POST["tahun_masuk"];
+        $Prodi = $_POST["prodi"];
+        $Alamat = $_POST["alamat"];
+        $Email = $_POST["email"];
+
+
 
         // Simpan data ke dalam tabel mahasiswa pada database
-        $sql = "INSERT INTO tb_mahasiswa (id_mahasiswa, Nama, Angkatan, NPM) VALUES ('$id', '$name', '$Angkatan', '$NPM')";
+        $sql = "INSERT INTO data_mhs (id_mahasiswa, Nama, Tahun_Masuk, Prodi, Alamat, Email) VALUES ('$id', '$name', '$Tahun', '$Prodi','$Alamat','$Email')";
 
         if ($koneksi->query($sql) === TRUE) {
             echo "<p style='color: green;'>Data berhasil disimpan ke database.</p>";
@@ -65,5 +74,56 @@
             <th>Email</th>
             <th>Aksi</th>
         </tr>
+        <?php
+        // ...
+
+        // Proses pencarian
+        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["submit_search"])) {
+            $search_keyword = $_GET["search"];
+
+            // Buat query pencarian berdasarkan nama atau angkatan
+            $sql = "SELECT * FROM data_mhs WHERE Nama LIKE '%$search_keyword%' OR Prodi LIKE '%$search_keyword%'OR Alamat LIKE '%$search_keyword%'";
+
+            $result = $koneksi->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["id_mahasiswa"] . "</td>";
+                    echo "<td>" . $row["Nama"] . "</td>";
+                    echo "<td>" . $row["Tahun Masuk"] . "</td>";
+                    echo "<td>" . $row["Prodi"] . "</td>";
+                    echo "<td>" . $row["Alamat"] . "</td>";
+                    echo "<td>" . $row["Email"] . "</td>";
+                    // Tambahkan tombol edit dan hapus
+                    echo "<td><a href='edit.php?id=" . $row["id_mahasiswa"]  . "'>Edit</a></td>";
+                    echo "<td><a href='hapus.php?id=" . $row["id_mahasiswa"] . "'>Hapus</a></td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='6'>Tidak ada hasil pencarian.</td></tr>";
+            }
+        } else {
+            // Tampilkan semua data mahasiswa dari database (tanpa pencarian)
+            $result = $koneksi->query("SELECT * FROM data_mhs");
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["id_mahasiswa"] . "</td>";
+                    echo "<td>" . $row["Nama"] . "</td>";
+                    echo "<td>" . $row["Tahun_Masuk"] . "</td>";
+                    echo "<td>" . $row["Prodi"] . "</td>";
+                    echo "<td>" . $row["Alamat"] . "</td>";
+                    echo "<td>" . $row["Email"] . "</td>";
+                    // Tambahkan tombol edit dan hapus
+                    echo "<td><a href='edit.php?id=" . $row["id_mahasiswa"] . "'>Edit</a></td>";
+                    echo "<td><a href='hapus.php?id=" . $row["id_mahasiswa"] . "'>Hapus</a></td>";
+                    echo "</tr>";
+                }
+            }
+        }
+        ?>
+    </table>
   </body>
 </html>
