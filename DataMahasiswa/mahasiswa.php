@@ -22,7 +22,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="index.php">HOME</a>
         <a class="nav-link active" aria-current="page" href="mahasiswa.php">Data</a>
-        <a class="nav-link" href="#">belum</a>
+        <a class="nav-link active" aria-current="page" href="mencari_data.php">cari</a>
       </div>
     </div>
   </div>

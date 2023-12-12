@@ -98,43 +98,19 @@ include("koneksi.php");
 
 <div class="container">
     <h2>Data Mahasiswa</h2>
+    <div class="row">
+        <form method="get" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+            <div class="col-12 col-md-6 col-lg-6">
+             <div class="input-group input-group-sm mb-3">
+               <input name="search" type="text" id="search" class="form-control" placeholder="Cari Nama atau Angkatan">
+                 <div class="input-group-append">
+                  <button class="btn btn-outline-success" type="submit" name="submit_search">cari</button>
+                  </div>
+              </div>
+          </div>
+        </form>
+    </div>
 </div>
-    <!-- menambahkan data mahasiswa -->
-    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <label for="id_mahasiswa">ID:</label>
-        <input type="text" id="id_mahasiswa" name="id_mahasiswa" required>
-
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="angkatan">Angkatan:</label>
-        <input type="text" id="angkatan" name="angkatan" required>
-
-        <label for="NPM">NPM:</label>
-        <input type="number" id="NPM" name="NPM" required>
-
-        <button type="submit" name="submit">Simpan</button>
-    </form>
-
-    <?php
-    // Proses data yang dikirim dari form
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
-        $id = $_POST["id_mahasiswa"];
-        $name = $_POST["name"];
-        $Angkatan = $_POST["angkatan"];
-        $NPM = $_POST["NPM"];
-
-        // Simpan data ke dalam tabel mahasiswa pada database
-        $sql = "INSERT INTO tb_mahasiswa (id_mahasiswa, Nama, Angkatan, NPM) VALUES ('$id', '$name', '$Angkatan', '$NPM')";
-
-        if ($koneksi->query($sql) === TRUE) {
-            echo "<p style='color: green;'>Data berhasil disimpan ke database.</p>";
-        } else {
-            echo "<p style='color: red;'>Error: " . $sql . "<br>" . $koneksi->error . "</p>";
-        }
-    }
-    ?>
-
     <!-- Tabel untuk menampilkan data mahasiswa -->
     <table class="table table-striped mt-3">
         <tr>
@@ -145,8 +121,8 @@ include("koneksi.php");
             <th>Ubah</th>
             <th>Delete</th>
         </tr>
+        
         <?php
-        // ...
 
         // Proses pencarian
         if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["submit_search"])) {
