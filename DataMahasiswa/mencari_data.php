@@ -98,8 +98,9 @@ include("koneksi.php");
 
 <div class="container">
     <h2>Data Mahasiswa</h2>
-    <div class="row">
+    <div class ="row ">
         <form method="get" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+           <div class="row justify-content-center">
             <div class="col-12 col-md-6 col-lg-6">
              <div class="input-group input-group-sm mb-3">
                <input name="search" type="text" id="search" class="form-control" placeholder="Cari Nama atau Angkatan">
@@ -107,10 +108,16 @@ include("koneksi.php");
                   <button class="btn btn-outline-success" type="submit" name="submit_search">cari</button>
                   </div>
               </div>
+            </div>
           </div>
         </form>
     </div>
 </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
     <!-- Tabel untuk menampilkan data mahasiswa -->
     <table class="table table-striped mt-3">
         <tr>

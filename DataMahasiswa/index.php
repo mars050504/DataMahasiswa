@@ -99,22 +99,77 @@ include("koneksi.php");
 <div class="container">
     <h2>Data Mahasiswa</h2>
 </div>
-    <!-- menambahkan data mahasiswa -->
-    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <label for="id_mahasiswa">ID:</label>
-        <input type="text" id="id_mahasiswa" name="id_mahasiswa" required>
 
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Your Page Title</title>
+</head>
+<body>
 
-        <label for="angkatan">Angkatan:</label>
-        <input type="text" id="angkatan" name="angkatan" required>
+<div class="container mt-5">
+    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="id_mahasiswa">ID:</label>
+            <input type="text" id="id_mahasiswa" name="id_mahasiswa" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide an ID.
+            </div>
+        </div>
 
-        <label for="NPM">NPM:</label>
-        <input type="number" id="NPM" name="NPM" required>
+        <div class="form-group">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide a name.
+            </div>
+        </div>
 
-        <button type="submit" name="submit">Simpan</button>
+        <div class="form-group">
+            <label for="angkatan">Angkatan:</label>
+            <input type="text" id="angkatan" name="angkatan" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide an angkatan.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="NPM">NPM:</label>
+            <input type="number" id="NPM" name="NPM" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide an NPM.
+            </div>
+        </div>
+        
+        <button type="submit" name="submit" class="btn btn-outline-success">Simpan</button>
     </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Enable Bootstrap's custom form validation
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+
 
     <?php
     // Proses data yang dikirim dari form
