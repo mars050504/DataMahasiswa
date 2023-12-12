@@ -47,13 +47,14 @@ include("koneksi.php");
         $name = $_POST["name"];
         $Tahun = $_POST["tahun_masuk"];
         $Prodi = $_POST["prodi"];
+        $UKT = $_POST["UKT"];
         $Alamat = $_POST["alamat"];
         $Email = $_POST["email"];
 
 
 
         // Simpan data ke dalam tabel mahasiswa pada database
-        $sql = "INSERT INTO data_mhs (id_mahasiswa, Nama, Tahun_Masuk, Prodi, Alamat, Email) VALUES ('$id', '$name', '$Tahun', '$Prodi','$Alamat','$Email')";
+        $sql = "INSERT INTO data_mhs (id_mahasiswa, Nama, Tahun_Masuk, Prodi, Alamat, Email) VALUES ('$id', '$name', '$Tahun', '$Prodi','$UKT','$Alamat','$Email')";
 
         if ($koneksi->query($sql) === TRUE) {
             echo "<p style='color: green;'>Data berhasil disimpan ke database.</p>";
@@ -70,6 +71,7 @@ include("koneksi.php");
             <th>Nama</th>
             <th>Tahun Masuk</th>
             <th>Prodi</th>
+            <th>UKT</th>
             <th>Alamat</th>
             <th>Email</th>
             <th>Aksi</th>
@@ -93,6 +95,7 @@ include("koneksi.php");
                     echo "<td>" . $row["Nama"] . "</td>";
                     echo "<td>" . $row["Tahun Masuk"] . "</td>";
                     echo "<td>" . $row["Prodi"] . "</td>";
+                    echo "<td>" . $row["UKT"] . "</td>";
                     echo "<td>" . $row["Alamat"] . "</td>";
                     echo "<td>" . $row["Email"] . "</td>";
                     // Tambahkan tombol edit dan hapus
@@ -114,6 +117,7 @@ include("koneksi.php");
                     echo "<td>" . $row["Nama"] . "</td>";
                     echo "<td>" . $row["Tahun_Masuk"] . "</td>";
                     echo "<td>" . $row["Prodi"] . "</td>";
+                    echo "<td>" . $row["UKT"] . "</td>";
                     echo "<td>" . $row["Alamat"] . "</td>";
                     echo "<td>" . $row["Email"] . "</td>";
                     // Tambahkan tombol edit dan hapus
