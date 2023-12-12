@@ -32,6 +32,7 @@ CREATE TABLE `data_mhs` (
   `Nama` varchar(100) NOT NULL,
   `Tahun_Masuk` date NOT NULL,
   `Prodi` varchar(100) NOT NULL,
+  `UKT` FLOAT(100) NOT NULL,
   `Alamat` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,8 +41,8 @@ CREATE TABLE `data_mhs` (
 -- Dumping data untuk tabel `data_mhs`
 --
 
-INSERT INTO `data_mhs` (`id_mahasiswa`, `Nama`, `Tahun_Masuk`, `Prodi`, `Alamat`, `Email`) VALUES
-(2019, 'Muh Ardani Syabilla', '2023-07-05', 'Teknik Informatika', 'Paiton', 'Ardanisyabilla@gmail.com');
+INSERT INTO `data_mhs` (`id_mahasiswa`, `Nama`, `Tahun_Masuk`, `Prodi`,`UKT`, `Alamat`, `Email`) VALUES
+(2019, 'Muh Ardani Syabilla', '2023-07-05', 'Teknik Informatika','5000000' 'Paiton', 'Ardanisyabilla@gmail.com');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
