@@ -89,7 +89,7 @@ include("koneksi.php");
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="index.php">HOME</a>
         <a class="nav-link active" aria-current="page" href="mahasiswa.php">Data</a>
-        <a class="nav-link active" aria-current="page" href="mencari_data.php">cari</a>
+        <a class="nav-link" href="#">belum</a>
       </div>
     </div>
   </div>
@@ -99,88 +99,56 @@ include("koneksi.php");
 <div class="container">
     <h2>Data Mahasiswa</h2>
 </div>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Your Page Title</title>
-</head>
-<body>
-
-<div class="container mt-5">
-    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="needs-validation" novalidate>
-        <div class="form-group">
-            <label for="id_mahasiswa">ID:</label>
-            <input type="text" id="id_mahasiswa" name="id_mahasiswa" class="form-control" required>
-            <div class="invalid-feedback">
-                Please provide an ID.
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="name">Nama:</label>
-            <input type="text" id="name" name="name" class="form-control" required>
-            <div class="invalid-feedback">
-                Please provide a name.
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="angkatan">Angkatan:</label>
-            <input type="text" id="angkatan" name="angkatan" class="form-control" required>
-            <div class="invalid-feedback">
-                Please provide an angkatan.
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="NPM">NPM:</label>
-            <input type="number" id="NPM" name="NPM" class="form-control" required>
-            <div class="invalid-feedback">
-                Please provide an NPM.
-            </div>
-        </div>
-        
-        <button type="submit" name="submit" class="btn btn-outline-success">Simpan</button>
+    
+    <!-- Formulir pencarian -->
+    <form method="get" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <label for="search">Cari Nama atau Angkatan atau Alamat:</label>
+        <input type="text" id="search" name="search" placeholder="Masukkan nama atau angkatan atau Alamat.">
+        <button type="submit" name="submit_search">Cari</button>
     </form>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Form untuk menambahkan karyawan -->
+    <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+        <label for="id_mahasiswa">ID:</label>
+        <input type="text" id="id_mahasiswa" name="id_mahasiswa" required>
 
-<script>
-    // Enable Bootstrap's custom form validation
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-</script>
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required>
 
+        <label for="Tahun_Masuk">Tahun Masuk:</label>
+        <input type="text" id="Tahun_Masuk" name="Tahun_Masuk" required>
 
+        <label for="Prodi">Prodi:</label>
+        <input type="text" id="Prodi" name="Prodi" required>
+
+        <label for="UKT">UKT:</label>
+        <input type="number" id="UKT" name="UKT" required>
+
+        <label for="Alamat">Alamat:</label>
+        <input type="text" id="Alamat" name="Alamat" required>
+
+         <label for="Email">Email:</label>
+        <input type="text" id="Email" name="Email" required>
+
+        <button type="submit" name="submit">Simpan</button>
+    </form>
 
     <?php
     // Proses data yang dikirim dari form
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
         $id = $_POST["id_mahasiswa"];
         $name = $_POST["name"];
-        $Angkatan = $_POST["angkatan"];
-        $NPM = $_POST["NPM"];
+        $Tahun_Masuk = $_POST["Tahun_Masuk"];
+        $Prodi = $_POST["Prodi"];
+        $UKT = $_POST["UKT"];
+        $Alamat = $_POST["Alamat"];
+        $Email = $_POST["Email"];
+
+
+
 
         // Simpan data ke dalam tabel mahasiswa pada database
-        $sql = "INSERT INTO tb_mahasiswa (id_mahasiswa, Nama, Angkatan, NPM) VALUES ('$id', '$name', '$Angkatan', '$NPM')";
+        $sql = "INSERT INTO data_mhs (id_mahasiswa, Nama, Tahun_Masuk, Prodi, UKT, Alamat, Email) VALUES ('$id', '$name', '$Tahun_Masuk', '$Prodi', '$UKT', '$Alamat', '$Email')";
 
         if ($koneksi->query($sql) === TRUE) {
             echo "<p style='color: green;'>Data berhasil disimpan ke database.</p>";
@@ -191,61 +159,75 @@ include("koneksi.php");
     ?>
 
     <!-- Tabel untuk menampilkan data mahasiswa -->
-    <table class="table table-striped mt-3">
-        <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Angkatan</th>
-            <th>NPM</th>
-            <th>Ubah</th>
-            <th>Delete</th>
-        </tr>
-        <?php
-        // ...
+    <table class="table table-striped mt-5">
+            <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Tahun Masuk</th>
+                <th>Prodi</th>
+                <th>UKT</th>
+                <th>Alamat</th>
+                <th>Email</th>
+                <th>Aksi</th>
+            </tr>
+            <?php
+            // ...
 
-        // Proses pencarian
-        if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["submit_search"])) {
+            // Proses pencarian
+                    if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["submit_search"])) {
             $search_keyword = $_GET["search"];
 
             // Buat query pencarian berdasarkan nama atau angkatan
-            $sql = "SELECT * FROM tb_mahasiswa WHERE Nama LIKE '%$search_keyword%' OR Angkatan LIKE '%$search_keyword%'";
+            $sql = "SELECT * FROM data_mhs WHERE Nama LIKE '%$search_keyword%' OR Tahun_Masuk LIKE '%$search_keyword%' OR Alamat LIKE '%$search_keyword%'";
 
             $result = $koneksi->query($sql);
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["id_mahasiswa"] . "</td>";
-                    echo "<td>" . $row["Nama"] . "</td>";
-                    echo "<td>" . $row["Angkatan"] . "</td>";
-                    echo "<td>" . $row["NPM"] . "</td>";
-                    // Tambahkan tombol edit dan hapus
-                    echo "<td><a href='edit.php?id=" . $row["id_mahasiswa"]  . "'>Edit</a></td>";
-                    echo "<td><a href='hapus.php?id=" . $row["id_mahasiswa"] . "'>Hapus</a></td>";
-                    echo "</tr>";
+
+                // Sisanya sama seperti sebelumnya
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["id_mahasiswa"] . "</td>";
+                        echo "<td>" . $row["Nama"] . "</td>";
+                        echo "<td>" . $row["Tahun_Masuk"] . "</td>";
+                        echo "<td>" . $row["Prodi"] . "</td>";
+                        echo "<td>" . $row["UKT"] . "</td>";
+                        echo "<td>" . $row["Alamat"] . "</td>";
+                        echo "<td>" . $row["Email"] . "</td>";
+                        // Tambahkan tombol edit dan hapus
+                        echo "<td><a href='edit.php?id=" . $row["id_mahasiswa"]  . "'>Edit</a></td>";
+                        echo "<td><a href='hapus.php?id=" . $row["id_mahasiswa"] . "'>Hapus</a></td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='6'>Tidak ada hasil pencarian.</td></tr>";
                 }
             } else {
-                echo "<tr><td colspan='6'>Tidak ada hasil pencarian.</td></tr>";
-            }
-        } else {
-            // Tampilkan semua data mahasiswa dari database (tanpa pencarian)
-            $result = $koneksi->query("SELECT * FROM tb_mahasiswa");
+                // Tampilkan semua data mahasiswa dari database (tanpa pencarian)
+                $result = $koneksi->query("SELECT * FROM data_mhs");
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["id_mahasiswa"] . "</td>";
-                    echo "<td>" . $row["Nama"] . "</td>";
-                    echo "<td>" . $row["Angkatan"] . "</td>";
-                    echo "<td>" . $row["NPM"] . "</td>";
-                    // Tambahkan tombol edit dan hapus
-                    echo "<td><a href='edit.php?id=" . $row["id_mahasiswa"] . "'>Edit</a></td>";
-                    echo "<td><a href='hapus.php?id=" . $row["id_mahasiswa"] . "'>Hapus</a></td>";
-                    echo "</tr>";
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["id_mahasiswa"] . "</td>";
+                        echo "<td>" . $row["Nama"] . "</td>";
+                        echo "<td>" . $row["Tahun_Masuk"] . "</td>";
+                        echo "<td>" . $row["Prodi"] . "</td>";
+                        echo "<td>" . $row["UKT"] . "</td>";
+                        echo "<td>" . $row["Alamat"] . "</td>";
+                        echo "<td>" . $row["Email"] . "</td>";
+                        // Tambahkan tombol edit dan hapus
+                        echo "<td><a href='edit.php?id=" . $row["id_mahasiswa"] . "'>Edit</a></td>";
+                        echo "<td><a href='hapus.php?id=" . $row["id_mahasiswa"] . "'>Hapus</a></td>";
+                        echo "</tr>";
+                    }
                 }
             }
-        }
-        ?>
-    </table>
-</body>
+            ?>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
 </html>
