@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["id"])) {
     $id = $_GET["id"];
 
     // Hapus data berdasarkan ID
-    $sql = "DELETE FROM tb_mahasiswa WHERE id_mahasiswa='$id'";
+    $sql = "DELETE FROM data_mhs WHERE id_mahasiswa='$id'";
 
     if ($koneksi->query($sql) === TRUE) {
         echo "Data berhasil dihapus.";
